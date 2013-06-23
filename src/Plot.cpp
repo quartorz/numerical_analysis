@@ -60,8 +60,10 @@ namespace{
 				::TranslateMessage(&msg);
 				::DispatchMessageW(&msg);
 			}else{
-				if(queue.empty())
+				if(queue.empty()){
+					::Sleep(1);
 					continue;
+				}
 				Message *d;
 				if(!queue.try_pop(d))
 					continue;
@@ -228,7 +230,7 @@ namespace numerical_analysis{
 				br->Release();
 				br = NULL;
 			}
-			std::for_each(defb, defb + _countof(defb), [](ID2D1SolidColorBrush *br){
+			std::for_each(defb, defb + _countof(defb), [](ID2D1SolidColorBrush *&br){
 				if(br != NULL){
 					br->Release();
 					br = NULL;
